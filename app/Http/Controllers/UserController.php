@@ -57,11 +57,7 @@ class UserController extends Controller
         // UserModel::create($data);
 
         // Ambil semua data dari tabel m_user
-        $user = UserModel::findOr(20,['username', 'nama'], function() {
-            abort(404);
-
-    });
-        
+        $user = UserModel::where('username', 'manageer9')->firstOrFail();
         return view('user', ['data' => $user]);
 
     }
