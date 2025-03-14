@@ -57,8 +57,9 @@ class UserController extends Controller
         // UserModel::create($data);
 
         // Ambil semua data dari tabel m_user
-        $user = UserModel::where('username', 'manageer9')->firstOrFail();
-        return view('user', ['data' => $user]);
+        $user = UserModel::where('level_id', 2)->count();
+    // dd($user); // Hapus atau komentari baris ini
+    return view('user', ['data' => $user]);
 
     }
 }
