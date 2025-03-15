@@ -46,6 +46,10 @@ class UserController extends Controller
 {
     public function index()
     {
+        // prak 2.7
+        $user = UserModel::with('level')->get();
+        return view('user', ['data' => $user]);
+
         // prak 2.5
         // // Membuat instance model UserModel baru dan menyimpannya ke database
         // $user = UserModel::create([
@@ -71,8 +75,10 @@ class UserController extends Controller
         // dd($user->wasChanged(['nama', 'username'])); // true
 
         // prak 2.6
-        $user = UserModel::all();
-        return view('user', ['data' => $user]);
+        // $user = UserModel::all();
+        // return view('user', ['data' => $user]);
+
+        
     }
 
     public function tambah()
@@ -121,4 +127,6 @@ class UserController extends Controller
         $user->delete();
         return redirect('/user');
     }
+
+
 }
