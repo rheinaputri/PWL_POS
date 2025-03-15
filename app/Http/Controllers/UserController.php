@@ -46,28 +46,27 @@ class UserController extends Controller
 {
     public function index()
     {
+        // Membuat instance model UserModel baru dan menyimpannya ke database
+        $user = UserModel::create([
+            'username' => 'manager11',
+            'nama' => 'Manager 11',
+            'password' => Hash::make('12345'), // Enkripsi password
+            'level_id' => 2,
+        ]);
 
-        // $data = [
-        //     'level_id' => 2,
-        //     'username' => 'manager_tiga',
-        //     'nama' => 'Manager 3',
-        //     'password' => Hash::make('12345'),
-            
-        // ];
-        // UserModel::create($data);
+        // Mengubah nilai atribut username pada instance model
+        $user->username = 'manager12';
 
-        // Ambil semua data dari tabel m_user
-        $user = UserModel::firstOrNew(
-            [
-                'username' => 'manager33',
-                'nama' => 'Manager Tiga Tiga',
-                'password' => Hash::make('12345'),
-                'level_id' => 2
-            ]
-        );
+        // Menyimpan perubahan ke database
         $user->save();
-        return view('user', ['data' => $user]);
 
+        // Memeriksa apakah ada perubahan pada model setelah disimpan
+        $user->wasChanged(); // true
+        $user->wasChanged('username'); // true
+        $user->wasChanged(['username', 'level_id']); // true
+        $user->wasChanged('nama'); // false
+
+        // Menampilkan hasil wasChanged()
+        dd($user->wasChanged(['nama', 'username'])); // true
     }
 }
-
