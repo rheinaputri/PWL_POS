@@ -58,7 +58,8 @@
     </div>
     <!--  Wrapper -->
 
-    <!-- Scripts -->
+
+<!-- Scripts -->
     <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
@@ -67,7 +68,7 @@
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <!-- AdminLTE Demo (Opsional) -->
     <script src="{{ asset('adminlte/dist/js/demo.js') }}"></script>
-    <!--  Scripts -->
+<!--  Scripts -->
 </body>
 
 </html>

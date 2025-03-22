@@ -64,6 +64,7 @@
                     </div>
                     <!-- Message End -->
                 </a>
+
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
@@ -83,6 +84,7 @@
                     </div>
                     <!-- Message End -->
                 </a>
+
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
@@ -102,6 +104,7 @@
                     </div>
                     <!-- Message End -->
                 </a>
+                
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
             </div>
