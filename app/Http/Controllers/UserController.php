@@ -23,10 +23,12 @@ class UserController extends Controller
 
         $activeMenu = 'user'; // set menu yang sedang aktif
 
+        $level = LevelModel::all();
         return view('user.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'activeMenu' => $activeMenu
+            'level' => $level,
+            'activeMenu' => $activeMenu,
         ]);
     }
 
@@ -34,6 +36,11 @@ class UserController extends Controller
     {
         $users = UserModel::select('user_id', 'username', 'nama', 'level_id')
             ->with('level');
+
+        // Filter data user berdasarkan level_id
+        if ($request->level_id) {
+            $users->where('level_id', $request->level_id);
+        }
 
         return DataTables::of($users)
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
@@ -138,12 +145,13 @@ class UserController extends Controller
 
         $activeMenu = 'user'; // Menandai menu yang sedang aktif
 
-        return view('user.edit', [
+        $level = LevelModel::all(); // Ambil data level untuk filter level
+
+        return view('user.index', [
             'breadcrumb' => $breadcrumb,
-            'page'       => $page,
-            'user'       => $user,
-            'level'      => $level,
-            'activeMenu' => $activeMenu
+            'page' => $page,
+            'activeMenu' => $activeMenu ,
+            'level' => $level,
         ]);
     }
 
