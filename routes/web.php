@@ -3,9 +3,11 @@
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
-
+// Route Welcome
+Route::get('/', [WelcomeController::class,'index']);
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,3 +33,4 @@ Route::put('user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
 
 // Route delete
 Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
+
