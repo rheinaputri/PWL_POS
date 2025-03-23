@@ -7,7 +7,7 @@ use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 // Route Welcome
-Route::get('/', [WelcomeController::class,'index']);
+Route::get('/', [WelcomeController::class, 'index']);
 // Route User
 Route::group(['prefix' => 'user'], function () {
     Route::get("/", [UserController::class, "index"]);  // menampilkan halaman awal user
@@ -20,14 +20,23 @@ Route::group(['prefix' => 'user'], function () {
     Route::delete("/{id}", [UserController::class, "destroy"]);  // menghapus data user
 });
 
-// Route Hapus
-Route::delete('/{id}', [UserController::class, 'destroy']);
+// Route Level
+Route::group(['prefix' => 'level'], function () {
+    Route::get('/', [LevelController::class, 'index'])->name('level.index');
+    Route::get('/list', [LevelController::class, 'list'])->name('level.list');
+    Route::get('/create', [LevelController::class, 'create'])->name('level.create');
+    Route::post("/", [LevelController::class, "store"])->name('level.store');;  // menyimpan data user baru
+    Route::get('/{id}', [LevelController::class, 'show'])->name('level.show');
+    Route::get('/{id}/edit', [LevelController::class, 'edit']);
+    Route::put('/{id}', [LevelController::class, 'update']);
+    Route::delete("/{id}", [LevelController::class, "destroy"]);  // menghapus data user
+});
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
-Route::get('/level', [levelController::class, 'index']);
+// Route::get('/level', [levelController::class, 'index']);
 Route::get('/kategori', [KategoriController::class, 'index']);
 
 // Route untuk User
@@ -47,4 +56,3 @@ Route::put('user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
 
 // Route delete
 Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
-
