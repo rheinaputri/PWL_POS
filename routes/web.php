@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -32,7 +33,7 @@ Route::group(['prefix' => 'level'], function () {
     Route::delete("/{id}", [LevelController::class, "destroy"]);
 });
 
-// Route Level
+// Route Kategori
 Route::group(['prefix' => 'kategori'], function () {
     Route::get('/', [KategoriController::class, 'index'])->name('kategori.index');
     Route::get('/list', [KategoriController::class, 'list'])->name('kategori.list');
@@ -42,6 +43,17 @@ Route::group(['prefix' => 'kategori'], function () {
     Route::get('/{id}/edit', [KategoriController::class, 'edit']);
     Route::put('/{id}', [KategoriController::class, 'update']);
     Route::delete("/{id}", [KategoriController::class, "destroy"]);
+});
+
+Route::group(['prefix' => 'barang'], function () {
+    Route::get('/', [BarangController::class, 'index'])->name('barang.index');
+    Route::get('/list', [BarangController::class, 'list'])->name('barang.list');
+    Route::get('/create', [BarangController::class, 'create'])->name('barang.create');
+    Route::post('/', [BarangController::class, 'store'])->name('barang.store');
+    Route::get('/{id}', [BarangController::class, 'show'])->name('barang.show');
+    Route::get('/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
+    Route::put('/{id}', [BarangController::class, 'update'])->name('barang.update');
+    Route::delete('/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 });
 
 // Route::get('/', function () {
