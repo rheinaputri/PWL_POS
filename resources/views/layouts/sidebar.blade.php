@@ -38,6 +38,14 @@
                 </a>
             </li>
 
+            {{-- supplier --}}
+            <li class="nav-item">
+                <a href="{{ url('/supplier') }}" class="nav-link {{ $activeMenu == 'supplier' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-users"></i> 
+                    <p>Data Supplier</p>
+                </a>
+            </li>
+            
             <!-- Data Barang -->
             <li class="nav-header">Data Barang</li>
             <li class="nav-item">
