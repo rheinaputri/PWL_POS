@@ -12,16 +12,16 @@ class AuthorizeUser
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
-     * @param string $role
+     * @param \Closure $next
+     * @param mixed ...$roles
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function handle(Request $request, Closure $next, $role = ''): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        $user = $request->user(); // ambil data user yg login
-
-        if ($user->hasRole($role)) { // cek apakah user punya role yg diinginkan
-            return $next($request);
+        $user_role = $request->user()->getRole(); // ambil data level_kode dari user yg login
+        
+        if (in_array($user_role, $roles)) { // cek apakah level_kode user ada di dalam array roles
+            return $next($request); // jika ada, maka lanjutkan request
         }
 
         // jika tidak punya role, maka tampilkan error 403

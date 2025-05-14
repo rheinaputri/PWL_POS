@@ -22,7 +22,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
     // Route Welcome
     Route::get('/', [WelcomeController::class, 'index']);
     // Route User
-    Route::group(['prefix' => 'user'], function () {
+    Route::middleware(['authorize:ADM,MNG,STF,CUS'])->group(function () {
         Route::get('/', [UserController::class, 'index']); //menampilkan halamann awal user
         Route::post('/list', [UserController::class, 'list']); //menampilkan data user dalam bentuk json untuk datatables
         Route::get('/create', [UserController::class, 'create']); //menampilkan halaman form tambah user
@@ -61,7 +61,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
     });
 
     // Route Kategori
-    Route::group(['prefix' => 'kategori'], function () {
+    Route::middleware(['authorize:ADM, MNG'])->group(function () {
         Route::get('/', [KategoriController::class, 'index'])->name('kategori.index');
         Route::get('/list', [KategoriController::class, 'list'])->name('kategori.list');
         Route::get('/create', [KategoriController::class, 'create'])->name('kategori.create');
@@ -80,7 +80,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
         Route::delete('/{id}', [KategoriController::class, 'destroy']);
     });
 
-    Route::group(['prefix' => 'barang'], function () {
+    Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
         Route::get('/', [BarangController::class, 'index'])->name('barang.index');
         Route::get('/list', [BarangController::class, 'list'])->name('barang.list');
         Route::get('/create', [BarangController::class, 'create'])->name('barang.create');
@@ -99,7 +99,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
         Route::delete('/{id}', [BarangController::class, 'destroy']);
     });
 
-    Route::group(['prefix' => 'supplier'], function () {
+    Route::middleware(['authorize:ADM, MNG'])->group(function () {
         Route::get('/', [SupplierController::class, 'index']);
         Route::post('/list', [SupplierController::class, 'list']);
         Route::get('/create', [SupplierController::class, 'create']);

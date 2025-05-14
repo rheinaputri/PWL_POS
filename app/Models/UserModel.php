@@ -17,7 +17,7 @@ class UserModel extends Authenticatable
     protected $fillable = ['username',  'password', 'nama', 'level_id', 'created_at', 'update_at'];
     protected $hidden = ['password'];
     protected $casts = ['passwrod' => 'hashed'];
-    
+
     /**
      * Relasi ke tabel level
      */
@@ -40,5 +40,13 @@ class UserModel extends Authenticatable
     public function hasRole($role): bool
     {
         return $this->level->level_kode == $role;
+    }
+
+    /**
+     * Mendapatkan kode role
+     */
+    public function getRole()
+    {
+        return $this->level->level_kode;
     }
 }
