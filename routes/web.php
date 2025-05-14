@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
     });
 
     // Route Level
-    Route::group(['prefix' => 'level'], function () {
+    Route::middleware(['authorize:ADM'])->group(function () {
         Route::get('/', [LevelController::class, 'index'])->name('level.index');
         Route::get('/list', [LevelController::class, 'list'])->name('level.list');
         Route::get('/create', [LevelController::class, 'create'])->name('level.create');
