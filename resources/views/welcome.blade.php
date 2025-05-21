@@ -7,7 +7,7 @@
         <div class="card-tools"></div>
     </div>
     <div class="card-body">
-        Selamat datang di website peminjaman sepeda.
+        Selamat datang di website .
     </div>
 </div>
     
