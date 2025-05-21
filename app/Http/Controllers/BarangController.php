@@ -444,15 +444,8 @@ class BarangController extends Controller
             ->orderBy('barang_kode')
             ->with('kategori')
             ->get();
-        
-        // user Barryvdh\DomPDF\Facade\Pdf;
-        $pdf = Pdf::loadView('barang.export_pdf', ['barang' => $barang]);
-        $pdf->setPaper('a4', 'potrait'); // set ukuran kertas dan orientasi potrait
-        $pdf->setOption("isRemoteEnabled", true); // set true jika ada gambar dari url
-        $pdf->render();
-        
+
+        $pdf = Pdf::loadView('barang.export_pdf', compact('barang'));
         return $pdf->download('Data Barang ' . date("Y-m-d H:i:s") . '.pdf');
     }
-
-    
 }
