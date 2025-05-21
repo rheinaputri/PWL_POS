@@ -444,7 +444,6 @@ class BarangController extends Controller
             ->orderBy('barang_kode')
             ->with('kategori')
             ->get();
-
         $pdf = Pdf::loadView('barang.export_pdf', compact('barang'));
         return $pdf->download('Data Barang ' . date("Y-m-d H:i:s") . '.pdf');
     }
