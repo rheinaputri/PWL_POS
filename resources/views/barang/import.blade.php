@@ -3,57 +3,46 @@
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Import Stock Data</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="exampleModalLabel">Import Data Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria- label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label>Download Template</label>
-                    {{-- Make sure to create this template file --}}
-                    <a href="{{ asset('template/stock_import.xlsx') }}" class="btn btn-info btn-sm" download>
-                        <i class="fa fa-file-excel"></i> Download Template
-                    </a>
+                    <a href="{{ asset('template_barang.xlsx') }}" class="btn btn-info btn-sm" download><i
+                            class="fa fa-file-excel"></i>Download</a>
+                    <small id="error-kategori_id" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Select File</label>
-                    <input type="file" name="file_item" id="file_item" class="form-control" required>
-                    <small id="error-file_item" class="error-text form-text text-danger"></small>
+                    <label>Pilih File</label>
+                    <input type="file" name="file_barang" id="file_barang" class="form-control" required>
+                    <small id="error-file_barang" class="error-text form-text text-danger"></small>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
                 <button type="submit" class="btn btn-primary">Upload</button>
             </div>
         </div>
     </div>
 </form>
-
 <script>
     $(document).ready(function() {
         $("#form-import").validate({
             rules: {
-                file_item: { // Changed from file_item to file_item
+                file_barang: {
                     required: true,
                     extension: "xlsx|xls"
-                }
+                },
             },
             messages: {
-                file_item: { // Changed from file_item to file_item
-                    required: "Please select a file",
-                    extension: "Only Excel files (xlsx, xls) are allowed"
+                file_barang: {
+                    extension: "Hanya file Excel (.xlsx, .xls) yang diperbolehkan"
                 }
             },
             submitHandler: function(form) {
-                const formData = new FormData(form);
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
+                var formData = new FormData(form);
                 $.ajax({
                     url: form.action,
                     type: form.method,
@@ -65,11 +54,11 @@
                             $('#myModal').modal('hide');
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Success',
+                                title: 'Berhasil',
                                 text: response.message
+                            }).then(() => {
+                                dataBarang.ajax.reload();
                             });
-                            dataStock.ajax
-                        .reload(); // Changed from dataProduct to dataStock
                         } else {
                             $('.error-text').text('');
                             if (response.msgField) {
@@ -79,18 +68,11 @@
                             }
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Error',
+                                title: 'Gagal',
                                 text: response.message
                             });
                         }
                     },
-                    error: function(xhr, status, error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'An error occurred while processing your request'
-                        });
-                    }
                 });
                 return false;
             },
